@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NettyHost - Личный кабинет</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="logo.svg" alt="NettyHost Logo">
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active" data-tab="dashboard">
+                    <a href="#dashboard">
+                        <span class="icon">📊</span>
+                        <span>Обзор</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-tab="servers">
+                    <a href="#servers">
+                        <span class="icon">🖥️</span>
+                        <span>Серверы</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-tab="projects">
+                    <a href="#projects">
+                        <span class="icon">📁</span>
+                        <span>Проекты</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-tab="domains">
+                    <a href="#domains">
+                        <span class="icon">🌐</span>
+                        <span>Домены</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-tab="databases">
+                    <a href="#databases">
+                        <span class="icon">💾</span>
+                        <span>Базы данных</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-tab="messages">
+                    <a href="#messages">
+                        <span class="icon">💬</span>
+                        <span>Сообщения</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-tab="settings">
+                    <a href="#settings">
+                        <span class="icon">⚙️</span>
+                        <span>Настройки</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="#" id="logout-btn" class="logout-btn">
+                    <span class="icon">🚪</span>
+                    <span>Выйти</span>
+                </a>
+            </div>
+        </nav>
+
+        <main class="content">
+            <header class="top-bar">
+                <div class="page-title">
+                    <h1>Обзор</h1>
+                </div>
+                <div class="user-profile">
+                    <div class="user-info">
+                        <span id="username" class="username">Загрузка...</span>
+                    </div>
+                    <div class="avatar">
+                        <img src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y" alt="Avatar">
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <div class="tab-content active" id="dashboard-tab">
+                    <div class="welcome-banner">
+                        <h2>Добро пожаловать в NettyHost!</h2>
+                        <p>Это ваш личный кабинет, где вы можете управлять серверами, проектами и настройками.</p>
+                    </div>
+                </div>
+                
+                <!-- Серверы -->
+                <div class="tab-content" id="servers-tab">
+                    <h2>Ваши серверы</h2>
+                    
+                    <div id="vds-server-list" class="server-list">
+                        <!-- Список серверов будет добавлен через JavaScript -->
+                        <p id="no-servers-message">У вас пока нет активных серверов. Закажите новый сервер, чтобы начать работу.</p>
+                    </div>
+                    
+                    <div class="vds-plans">
+                        <h3>Доступные планы VDS</h3>
+                        <div class="plan-cards">
+                            <div class="plan-card">
+                                <div class="plan-header">
+                                    <h4>Free Trial VDS</h4>
+                                    <div class="plan-price">0 ₽/один день</div>
+                                </div>
+                                <div class="plan-features">
+                                    <ul>
+                                        <li>2 CPU</li>
+                                        <li>2 GB RAM</li>
+                                        <li>3 GB SSD</li>
+                                        <li>100 GB Трафик</li>
+                                        <li>Без гарантии SLA</li>
+                                    </ul>
+                                </div>
+                                <button class="btn-order-vds" data-plan="free">Получить бесплатно</button>
+                            </div>
+                            
+                            <div class="plan-card premium-card">
+                                <div class="popular-badge">Популярный</div>
+                                <div class="plan-header">
+                                    <h4>Premium VDS</h4>
+                                    <div class="plan-price">449 ₽/мес</div>
+                                </div>
+                                <div class="plan-features">
+                                    <ul>
+                                        <li>8 CPU</li>
+                                        <li>32 GB RAM</li>
+                                        <li>80 GB SSD</li>
+                                        <li>1 TB Трафик</li>
+                                        <li>99.9% SLA</li>
+                                        <li>Приоритетная поддержка</li>
+                                    </ul>
+                                </div>
+                                <button class="btn-order-vds" data-plan="premium">Заказать</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Проекты -->
+                <div class="tab-content" id="projects-tab">
+                    <h2>Ваши проекты</h2>
+                    <p>Здесь будут отображаться ваши проекты.</p>
+                </div>
+                
+                <!-- Домены -->
+                <div class="tab-content" id="domains-tab">
+                    <h2>Домены</h2>
+                    <p>Здесь будут отображаться ваши домены.</p>
+                </div>
+                
+                <!-- Базы данных -->
+                <div class="tab-content" id="databases-tab">
+                    <h2>Базы данных</h2>
+                    <p>Здесь будут отображаться ваши базы данных.</p>
+                </div>
+                
+                <!-- Сообщения -->
+                <div class="tab-content" id="messages-tab">
+                    <h2>Сообщения</h2>
+                    <p>У вас нет новых сообщений.</p>
+                </div>
+                
+                <!-- Оплата -->
+                <div class="tab-content" id="billing-tab">
+                    <h2>Оплата</h2>
+                    <div class="billing-container">
+                        <div class="balance-card">
+                            <h3>Текущий баланс</h3>
+                            <div class="balance-amount">0 ₽</div>
+                            <p class="balance-info">Пополните баланс для оплаты услуг</p>
+                        </div>
+                        
+                        <div class="payment-card">
+                            <h3>Пополнение баланса</h3>
+                            <form id="payment-form" class="payment-form">
+                                <div class="form-group">
+                                    <label for="amount">Сумма пополнения (₽)</label>
+                                    <input type="number" id="amount" name="amount" min="100" value="500" required>
+                                </div>
+                                
+                                <div class="payment-methods">
+                                    <div class="payment-method active">
+                                        <img src="https://yoomoney.ru/i/html-letters/header-logo.png" alt="YooMoney" height="30">
+                                        <span>ЮMoney</span>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn-payment">Пополнить баланс</button>
+                            </form>
+                        </div>
+                        
+                        <div class="payment-history">
+                            <h3>История операций</h3>
+                            <div class="empty-history">
+                                <p>У вас пока нет истории операций</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Настройки -->
+                <div class="tab-content" id="settings-tab">
+                    <h2>Настройки профиля</h2>
+                    <p>Здесь вы можете изменить настройки вашего профиля.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Загрузка данных пользователя
+        async function loadUserData() {
+            try {
+                const response = await fetch('/api/user');
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('username').textContent = data.user.username;
+                } else {
+                    window.location.href = '/login.html';
+                }
+            } catch (error) {
+                console.error('Ошибка при загрузке данных пользователя:', error);
+                window.location.href = '/login.html';
+            }
+        }
+
+        // Загрузить данные пользователя при загрузке страницы
+        document.addEventListener('DOMContentLoaded', loadUserData);
+        
+        // Переключение вкладок
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Удаляем active класс со всех элементов навигации
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    // Добавляем active класс к текущему элементу
+                    this.classList.add('active');
+                    
+                    // Получаем id вкладки
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Скрываем все вкладки
+                    tabContents.forEach(tab => tab.classList.remove('active'));
+                    
+                    // Показываем нужную вкладку
+                    document.getElementById(tabId + '-tab').classList.add('active');
+                    
+                    // Обновляем заголовок страницы
+                    document.querySelector('.page-title h1').textContent = this.querySelector('span:last-child').textContent;
+                });
+            });
+        });
+    </script>
+    <script src="dashboard.js"></script>
+    <script>
+        // Инициализация страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Получение списка серверов при загрузке
+            loadVDSServers();
+            
+            // Обработка переключения вкладок
+            const navItems = document.querySelectorAll('.nav-item');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Убираем активный класс у всех элементов
+                    navItems.forEach(i => i.classList.remove('active'));
+                    tabContents.forEach(t => t.classList.remove('active'));
+                    
+                    // Добавляем активный класс нажатому элементу и соответствующему контенту
+                    this.classList.add('active');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                    
+                    // Обновляем заголовок страницы
+                    const pageTitle = document.querySelector('.page-title h1');
+                    pageTitle.textContent = this.querySelector('span:last-child').textContent;
+                });
+            });
+            
+            // Обработка нажатия на кнопки заказа VDS
+            const orderButtons = document.querySelectorAll('.btn-order-vds');
+            orderButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const plan = this.getAttribute('data-plan');
+                    showPaymentMethodModal(plan);
+                });
+            });
+            
+            // Обработка выхода из системы
+            document.getElementById('logout-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                logout();
+            });
+            
+            // Функция для выхода из системы
+            async function logout() {
+                try {
+                    const response = await fetch('/api/logout', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        window.location.href = '/login.html';
+                    } else {
+                        alert('Ошибка при выходе из системы');
+                    }
+                } catch (error) {
+                    console.error('Ошибка при выходе:', error);
+                    alert('Ошибка соединения с сервером');
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

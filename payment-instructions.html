@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструкции по оплате - NettyHost</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 30px;
+            padding-bottom: 50px;
+        }
+        .payment-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .webmoney-logo {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+        .payment-details {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .payment-step {
+            margin-bottom: 25px;
+        }
+        .step-number {
+            background-color: #007bff;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container payment-container">
+        <div class="text-center mb-4">
+            <h1>Оплата через WebMoney</h1>
+            <img src="https://www.webmoney.ru/img/icons/wmlogo.png" alt="WebMoney Logo" class="webmoney-logo">
+        </div>
+
+        <div class="alert alert-info">
+            Для оплаты вам потребуется кошелек WebMoney. Если у вас его нет, вы можете <a href="https://wallet.webmoney.ru/" target="_blank">зарегистрировать его здесь</a>.
+        </div>
+
+        <div id="payment-details" class="payment-details">
+            <h3>Детали платежа</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Кошелек получателя:</strong> <span id="wmPurse"></span></p>
+                    <p><strong>Сумма к оплате:</strong> <span id="amount"></span> руб.</p>
+                    <p><strong>Номер заказа:</strong> <span id="orderId"></span></p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>План VDS:</strong> <span id="plan"></span></p>
+                    <p><strong>Код верификации:</strong> <span id="verificationCode"></span></p>
+                    <p><strong>Статус:</strong> <span id="orderStatus" class="badge bg-warning">Ожидает оплаты</span></p>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <a id="paymentLink" href="#" target="_blank" class="btn btn-primary btn-lg">Перейти к оплате</a>
+            </div>
+        </div>
+
+        <div class="payment-steps mt-5">
+            <h3>Инструкция по оплате:</h3>
+            
+            <div class="payment-step">
+                <div class="step-number">1</div>
+                <strong>Нажмите кнопку "Перейти к оплате"</strong>
+                <p>Вы будете перенаправлены на официальный сайт WebMoney для совершения платежа.</p>
+            </div>
+            
+            <div class="payment-step">
+                <div class="step-number">2</div>
+                <strong>Войдите в свой аккаунт WebMoney</strong>
+                <p>Используйте свой логин и пароль для авторизации в системе WebMoney.</p>
+            </div>
+            
+            <div class="payment-step">
+                <div class="step-number">3</div>
+                <strong>Проверьте данные платежа</strong>
+                <p>Убедитесь, что сумма и детали платежа указаны верно.</p>
+            </div>
+            
+            <div class="payment-step">
+                <div class="step-number">4</div>
+                <strong>Подтвердите платеж</strong>
+                <p>Нажмите "Оплатить" и следуйте инструкциям системы для завершения платежа.</p>
+            </div>
+            
+            <div class="payment-step">
+                <div class="step-number">5</div>
+                <strong>Вернитесь на наш сайт</strong>
+                <p>После успешного платежа вы будете автоматически перенаправлены обратно на наш сайт.</p>
+            </div>
+        </div>
+
+        <div class="alert alert-warning mt-4">
+            <strong>Важно!</strong> Если у вас возникли проблемы с оплатой, свяжитесь с нашей поддержкой в Telegram: <a href="https://t.me/nettyhostbot" target="_blank">@nettyhostbot</a>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="/dashboard.html" class="btn btn-secondary">Вернуться в личный кабинет</a>
+        </div>
+    </div>
+
+    <script>
+        // Функция для получения параметра из URL
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Получаем ID VDS из URL
+        const vdsId = getUrlParameter('vdsId');
+        
+        if (vdsId) {
+            // Загружаем информацию о платеже
+            fetch(`/api/vds/payment-info/${vdsId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const paymentInfo = data.payment_info;
+                        
+                        // Заполняем детали платежа
+                        document.getElementById('wmPurse').textContent = paymentInfo.webmoney_purse;
+                        document.getElementById('amount').textContent = paymentInfo.amount;
+                        document.getElementById('orderId').textContent = paymentInfo.payment_id;
+                        document.getElementById('plan').textContent = paymentInfo.plan;
+                        document.getElementById('verificationCode').textContent = paymentInfo.verification_code;
+                        
+                        // Устанавливаем ссылку на оплату
+                        document.getElementById('paymentLink').href = paymentInfo.payment_link;
+                    } else {
+                        alert('Ошибка при получении информации о платеже: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка при загрузке информации о платеже:', error);
+                    alert('Произошла ошибка при загрузке информации о платеже. Пожалуйста, попробуйте позже.');
+                });
+        } else {
+            alert('ID VDS не указан в URL. Вернитесь в личный кабинет и повторите попытку.');
+        }
+    </script>
+</body>
+</html> 

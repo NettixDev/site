@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NettyHost - Хостинг VDS серверов</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="logo.svg" alt="NettyHost Logo">
+                <h1>NettyHost</h1>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#features">Возможности</a></li>
+                    <li><a href="#plans">Тарифы</a></li>
+                    <li><a href="#testimonials">Отзывы</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-buttons">
+                <a href="login.html" class="btn btn-login">Вход</a>
+                <a href="register.html" class="btn btn-register">Регистрация</a>
+            </div>
+            
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <!-- Мобильное меню -->
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="#features">Возможности</a></li>
+                <li><a href="#plans">Тарифы</a></li>
+                <li><a href="#testimonials">Отзывы</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+            <div class="mobile-buttons">
+                <a href="login.html" class="btn btn-login">Вход</a>
+                <a href="register.html" class="btn btn-register">Регистрация</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Главный экран -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2>Быстрые VDS серверы для ваших проектов</h2>
+                    <p>Надежный хостинг с мгновенным запуском, высокой производительностью и круглосуточной поддержкой</p>
+                    <div class="hero-buttons">
+                        <a href="#plans" class="btn btn-primary">Выбрать тариф</a>
+                        <a href="#features" class="btn btn-secondary">Узнать больше</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://via.placeholder.com/600x400/1a1a1a/808080?text=NettyHost" alt="NettyHost Dashboard">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Возможности -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Почему выбирают нас</h2>
+                <p>Наши VDS серверы предоставляют все необходимые инструменты для эффективной работы</p>
+            </div>
+            
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-rocket"></i></div>
+                    <h3>Высокая производительность</h3>
+                    <p>Современное оборудование и оптимизированная инфраструктура обеспечивают максимальную скорость работы</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                    <h3>Безопасность</h3>
+                    <p>Защита от DDoS атак, регулярные резервные копии и мониторинг обеспечивают надежность ваших данных</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>Полный контроль</h3>
+                    <p>Root доступ и возможность устанавливать любое ПО для гибкой настройки сервера под ваши нужды</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-sync-alt"></i></div>
+                    <h3>Мгновенный запуск</h3>
+                    <p>Автоматизированная система позволяет развернуть сервер и начать работу в течение нескольких минут</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-briefcase"></i></div>
+                    <h3>Удобная панель управления</h3>
+                    <p>Интуитивно понятный интерфейс для мониторинга и управления сервером из любой точки мира</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-search"></i></div>
+                    <h3>Круглосуточная поддержка</h3>
+                    <p>Наши специалисты всегда на связи и готовы помочь с любыми вопросами 24/7</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Тарифы -->
+    <section class="plans" id="plans">
+        <div class="container">
+            <div class="section-title">
+                <h2>Выберите подходящий тариф</h2>
+                <p>Мы предлагаем гибкие тарифные планы для любых потребностей</p>
+            </div>
+            
+            <div class="plan-cards">
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h3>Free Trial</h3>
+                        <div class="plan-price">0 ₽<span>/1 день</span></div>
+                    </div>
+                    <div class="plan-content">
+                        <div class="plan-features">
+                            <ul>
+                                <li>2 CPU</li>
+                                <li>2 GB RAM</li>
+                                <li>3 GB SSD</li>
+                                <li>100 GB Трафик</li>
+                                <li>Без гарантии</li>
+                            </ul>
+                        </div>
+                        <div class="plan-button">
+                            <a href="register.html" class="btn btn-primary">Начать бесплатно</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="plan-card premium">
+                    <div class="plan-header">
+                        <h3>Premium VDS</h3>
+                        <div class="plan-price">449 ₽<span>/мес</span></div>
+                    </div>
+                    <span class="popular-badge">Популярный</span>
+                    <div class="plan-content">
+                        <div class="plan-features">
+                            <ul>
+                                <li>8 CPU</li>
+                                <li>32 GB RAM</li>
+                                <li>80 GB SSD</li>
+                                <li>1 TB Трафик</li>
+                                <li>Поддержка 24/7</li>
+                                <li>Приоритетная поддержка</li>
+                                <li>Защита от DDoS</li>
+                                <li>Ежедневные бэкапы</li>
+                            </ul>
+                        </div>
+                        <div class="plan-button">
+                            <a href="register.html" class="btn btn-primary">Заказать</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Отзывы -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Что говорят наши клиенты</h2>
+                <p>Отзывы реальных пользователей о качестве наших услуг</p>
+            </div>
+            
+            <div class="testimonial-cards">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Отличный хостинг с прекрасной поддержкой. Сервер работает стабильно, без сбоев и проблем. Очень доволен сервисом и всем рекомендую!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Алексей К.">
+                        <div class="author-info">
+                            <h4>Алексей К.</h4>
+                            <p>Веб-разработчик</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Пользуюсь NettyHost уже больше года. За все время ни одного сбоя, сервера быстрые, поддержка отвечает моментально. Идеальный сервис!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Елена М.">
+                        <div class="author-info">
+                            <h4>Елена М.</h4>
+                            <p>Владелец интернет-магазина</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Перешел с другого хостинга и не пожалел. Скорость работы выросла в несколько раз, а цена осталась такой же. Настоящие профессионалы!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="Дмитрий С.">
+                        <div class="author-info">
+                            <h4>Дмитрий С.</h4>
+                            <p>Системный администратор</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Призыв к действию -->
+    <section class="cta">
+        <div class="container">
+            <h2>Готовы начать?</h2>
+            <p>Зарегистрируйтесь прямо сейчас и получите первый месяц со скидкой 20%</p>
+            <a href="register.html" class="btn">Создать аккаунт</a>
+        </div>
+    </section>
+    
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="logo.svg" alt="NettyHost">
+                    </div>
+                    <p class="footer-description">
+                        Надежный хостинг VDS серверов для проектов любой сложности. Высокая производительность, безопасность и круглосуточная поддержка.
+                    </p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Услуги</h4>
+                    <ul>
+                        <li><a href="#plans">VDS хостинг</a></li>
+                        <li><a href="#">Выделенные серверы</a></li>
+                        <li><a href="#">Хостинг для 1С</a></li>
+                        <li><a href="#">Хостинг для игр</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Компания</h4>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="#">Карьера</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Поддержка</h4>
+                    <ul>
+                        <li><a href="#">Центр поддержки</a></li>
+                        <li><a href="#">Документация</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Статус серверов</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2023 NettyHost. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+    
+    <script>
+        // Проверка авторизации пользователя при загрузке страницы
+        async function checkUserAuth() {
+            try {
+                // Запрос на API для проверки авторизации
+                const response = await fetch('/api/user');
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        // Пользователь авторизован - обновляем кнопки в шапке
+                        const headerButtons = document.querySelector('.header-buttons');
+                        const mobileButtons = document.querySelector('.mobile-buttons');
+                        
+                        if (headerButtons) {
+                            headerButtons.innerHTML = `
+                                <a href="dashboard.html" class="btn btn-primary">Личный кабинет</a>
+                                <button id="logout-btn" class="btn btn-secondary">Выйти</button>
+                            `;
+                        }
+                        
+                        if (mobileButtons) {
+                            mobileButtons.innerHTML = `
+                                <a href="dashboard.html" class="btn btn-primary">Личный кабинет</a>
+                                <button id="logout-btn-mobile" class="btn btn-secondary">Выйти</button>
+                            `;
+                        }
+                        
+                        // Добавляем обработчик для кнопки выхода
+                        const logoutBtn = document.getElementById('logout-btn');
+                        const logoutBtnMobile = document.getElementById('logout-btn-mobile');
+                        
+                        if (logoutBtn) {
+                            logoutBtn.addEventListener('click', logout);
+                        }
+                        
+                        if (logoutBtnMobile) {
+                            logoutBtnMobile.addEventListener('click', logout);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Ошибка при проверке авторизации:', error);
+            }
+        }
+        
+        // Функция выхода из аккаунта
+        async function logout() {
+            try {
+                const response = await fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Перезагружаем страницу после выхода
+                    window.location.reload();
+                } else {
+                    alert('Ошибка при выходе из аккаунта');
+                }
+            } catch (error) {
+                console.error('Ошибка при выходе из аккаунта:', error);
+            }
+        }
+        
+        // Запускаем проверку авторизации при загрузке страницы
+        checkUserAuth();
+    </script>
+</body>
+</html> 

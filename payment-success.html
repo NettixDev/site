@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оплата успешна - NettyHost</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .success-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #2ed573;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin-bottom: 2rem;
+            color: white;
+        }
+        
+        .success-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #7e41ff, #35b3fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .success-message {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #a0a0a0;
+        }
+        
+        .success-button {
+            padding: 12px 28px;
+            background: linear-gradient(to right, #7e41ff, #6a30e0);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .success-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(128, 68, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <div class="success-container">
+        <div class="success-icon">✓</div>
+        <h1 class="success-title">Оплата успешно выполнена!</h1>
+        <p class="success-message">Спасибо за ваш платеж. Ваш сервер активирован и готов к использованию.</p>
+        <a href="dashboard.html" class="success-button">Перейти в личный кабинет</a>
+        
+        <div class="debug-controls" style="margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+            <p style="margin-bottom: 10px; color: #a0a0a0; font-size: 14px;">Режим тестирования</p>
+            <button id="manual-approve-btn" style="background: #2ed573; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-top: 10px;">
+                Подтвердить платеж вручную
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        // Get payment details from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const paymentId = urlParams.get('label');
+        
+        // Save the payment success status to localStorage
+        if (paymentId) {
+            localStorage.setItem('payment_success', 'pending');
+            localStorage.setItem('payment_id', paymentId);
+            
+            // Запускаем проверку статуса платежа
+            checkPaymentStatus(paymentId);
+        }
+        
+        // Функция проверки статуса платежа
+        async function checkPaymentStatus(paymentId) {
+            try {
+                console.log(`Проверка статуса платежа: ${paymentId}`);
+                const response = await fetch(`/api/payments/${paymentId}/status`);
+                
+                if (!response.ok) {
+                    console.error('Ошибка при проверке статуса платежа');
+                    return;
+                }
+                
+                const data = await response.json();
+                
+                if (data.success && data.status === 'PAID') {
+                    console.log('Платеж успешно подтвержден');
+                    localStorage.setItem('payment_success', 'true');
+                    
+                    // Обновляем текст на странице
+                    document.querySelector('.success-title').textContent = 'Оплата успешно выполнена!';
+                    document.querySelector('.success-message').textContent = 'Спасибо за ваш платеж. Ваш сервер активирован и готов к использованию.';
+                } else if (data.status === 'WAITING') {
+                    console.log('Платеж в обработке');
+                    // Обновляем текст на странице
+                    document.querySelector('.success-title').textContent = 'Платеж в обработке';
+                    document.querySelector('.success-message').textContent = 'Ваш платеж обрабатывается. Это может занять несколько минут. Вы можете вернуться в личный кабинет и проверить статус позже.';
+                    
+                    // Повторяем проверку через 5 секунд
+                    setTimeout(() => checkPaymentStatus(paymentId), 5000);
+                } else {
+                    console.log('Статус платежа: ', data.status);
+                }
+            } catch (error) {
+                console.error('Ошибка при проверке статуса платежа:', error);
+            }
+        }
+        
+        // Function to redirect to dashboard
+        function redirectToDashboard() {
+            // Check if we're already on the dashboard
+            if (window.location.pathname.includes('dashboard')) {
+                return;
+            }
+            
+            // Redirect to dashboard
+            window.location.href = '/dashboard.html';
+        }
+        
+        // Добавляем функцию для ручного подтверждения платежа
+        const manualApproveBtn = document.getElementById('manual-approve-btn');
+        if (manualApproveBtn) {
+            manualApproveBtn.addEventListener('click', async function() {
+                const paymentId = urlParams.get('label');
+                if (!paymentId) {
+                    alert('ID платежа не найден в URL');
+                    return;
+                }
+                
+                try {
+                    const response = await fetch(`/api/payments/${paymentId}/manual-approve`, {
+                        method: 'POST'
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        alert('Платеж успешно подтвержден вручную!');
+                        localStorage.setItem('payment_success', 'true');
+                        
+                        // Обновляем UI
+                        document.querySelector('.success-title').textContent = 'Оплата успешно выполнена!';
+                        document.querySelector('.success-message').textContent = 'Спасибо за ваш платеж. Ваш сервер активирован и готов к использованию.';
+                        
+                        // Перенаправляем через 2 секунды
+                        setTimeout(redirectToDashboard, 2000);
+                    } else {
+                        alert('Ошибка при подтверждении платежа: ' + (data.message || 'Неизвестная ошибка'));
+                    }
+                } catch (error) {
+                    console.error('Ошибка при ручном подтверждении:', error);
+                    alert('Ошибка при подтверждении платежа: ' + error.message);
+                }
+            });
+        }
+        
+        // Automatic redirect after 10 seconds
+        setTimeout(redirectToDashboard, 10000);
+    </script>
+</body>
+</html> 

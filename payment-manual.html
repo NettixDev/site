@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ручная оплата - NettyHost</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .manual-payment-container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: rgba(30, 30, 30, 0.7);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .manual-payment-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .manual-payment-header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #7e41ff, #35b3fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .manual-payment-content {
+            margin-bottom: 30px;
+        }
+        
+        .payment-details {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-details h3 {
+            margin-bottom: 15px;
+            color: #7e41ff;
+        }
+        
+        .payment-detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .payment-detail-label {
+            font-weight: 600;
+            color: #a0a0a0;
+        }
+        
+        .payment-detail-value {
+            font-weight: 700;
+        }
+        
+        .copy-button {
+            padding: 3px 10px;
+            background-color: rgba(126, 65, 255, 0.2);
+            border: 1px solid rgba(126, 65, 255, 0.3);
+            border-radius: 4px;
+            cursor: pointer;
+            color: #7e41ff;
+            margin-left: 10px;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-button:hover {
+            background-color: rgba(126, 65, 255, 0.3);
+        }
+        
+        .yoomoney-qr {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .yoomoney-qr img {
+            max-width: 200px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .manual-payment-steps {
+            margin-bottom: 30px;
+        }
+        
+        .manual-payment-steps h3 {
+            margin-bottom: 15px;
+            color: #7e41ff;
+        }
+        
+        .manual-payment-steps ol {
+            padding-left: 20px;
+        }
+        
+        .manual-payment-steps li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .payment-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .btn-direct-payment, .btn-check-payment {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn-direct-payment {
+            background: linear-gradient(to right, #7e41ff, #6a30e0);
+            color: white;
+            border: none;
+        }
+        
+        .btn-check-payment {
+            background: transparent;
+            color: white;
+            border: 1px solid #7e41ff;
+        }
+        
+        .btn-direct-payment:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(128, 68, 255, 0.4);
+        }
+        
+        .btn-check-payment:hover {
+            background-color: rgba(128, 68, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    <div class="manual-payment-container">
+        <div class="manual-payment-header">
+            <h1>Ручная оплата заказа</h1>
+            <p>Используйте эту страницу для ручной оплаты заказа через ЮMoney</p>
+        </div>
+        
+        <div class="manual-payment-content">
+            <div class="payment-details">
+                <h3>Детали платежа</h3>
+                <div class="payment-detail-item">
+                    <span class="payment-detail-label">Заказ:</span>
+                    <span class="payment-detail-value" id="order-id">Загрузка...</span>
+                </div>
+                <div class="payment-detail-item">
+                    <span class="payment-detail-label">Сумма к оплате:</span>
+                    <span class="payment-detail-value" id="amount">Загрузка...</span>
+                </div>
+                <div class="payment-detail-item">
+                    <span class="payment-detail-label">Кошелек получателя:</span>
+                    <span class="payment-detail-value">
+                        4100119127110327
+                        <button class="copy-button" onclick="copyToClipboard('4100119127110327')">Копировать</button>
+                    </span>
+                </div>
+                <div class="payment-detail-item">
+                    <span class="payment-detail-label">Комментарий:</span>
+                    <span class="payment-detail-value" id="comment">
+                        Загрузка...
+                        <button class="copy-button" onclick="copyToClipboard(document.getElementById('comment').innerText.trim())">Копировать</button>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="manual-payment-steps">
+                <h3>Инструкция по оплате</h3>
+                <ol>
+                    <li>Перейдите на <a href="https://yoomoney.ru/to/4100119127110327" target="_blank">страницу оплаты ЮMoney</a></li>
+                    <li>Укажите сумму платежа, указанную выше</li>
+                    <li>В поле "Комментарий" обязательно укажите код из поля "Комментарий" выше</li>
+                    <li>Выберите удобный способ оплаты (банковская карта, электронный кошелек и т.д.)</li>
+                    <li>Завершите платеж на странице ЮMoney</li>
+                    <li>После оплаты нажмите кнопку "Проверить статус платежа" ниже</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="payment-buttons">
+            <a href="https://yoomoney.ru/to/4100119127110327" class="btn-direct-payment" target="_blank">Перейти к оплате</a>
+            <a href="dashboard.html" class="btn-check-payment">Вернуться в кабинет</a>
+        </div>
+    </div>
+    
+    <script>
+        // Получаем параметры из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get('id') || 'Не указан';
+        const verificationCode = urlParams.get('code') || 'Не указан';
+        
+        // Устанавливаем значения в форму
+        document.getElementById('order-id').textContent = orderId;
+        document.getElementById('amount').textContent = '300 ₽';
+        document.getElementById('comment').textContent = `${orderId}`;
+        
+        // Функция для копирования текста в буфер обмена
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text)
+                .then(() => {
+                    alert('Скопировано в буфер обмена');
+                })
+                .catch(err => {
+                    console.error('Ошибка при копировании: ', err);
+                });
+        }
+    </script>
+</body>
+</html> 
