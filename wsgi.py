@@ -116,4 +116,4 @@ if __name__ == "__main__":
         logger.info("Telegram-бот запущен в отдельном потоке")
     
     # Запускаем Flask-приложение
-    application.run(host="0.0.0.0", port=5000, debug=True)
+    application.run(host="0.0.0.0", port=4678, debug=True)
